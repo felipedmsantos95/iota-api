@@ -1,0 +1,39 @@
+{
+  "name": "iota-api",
+  "version": "1.0.0",
+  "description": "Api with routes to request the Tangle",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipedmsantos95/iota-api.git"
+  },
+  "keywords": [
+    "iota",
+    "tangle",
+    "iot"
+  ],
+  "author": "Felipe Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felipedmsantos95/iota-api/issues"
+  },
+  "homepage": "https://github.com/felipedmsantos95/iota-api#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "morgan": "^1.9.1",
+    "validate.js": "^0.13.1"
+  }
+}
