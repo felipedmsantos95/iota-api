@@ -15,17 +15,25 @@ const https = require('https')
 const fs = require('fs')
 
 const server = require('http').Server(app);
+console.log('[IOTA Tangle API]')
+
 const { errorMiddleware, constraintsMiddleware } = require('./utils/')
+//const { iotaMiddleware } = require('./config/')
 
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors({
   		origin: '*'
 }))
+
+//app.use(iotaMiddleware)
 app.use(constraintsMiddleware)
-app.use(errorMiddleware)
+
 // All routes
 app.use(require('./routes'))
+
+app.use(errorMiddleware)
+
 
 process.on('unhandledRejection', (reason, promise) => {
   //console.log('Unhandled Rejection at:', reason.stack || reason)
@@ -35,8 +43,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
 
 let serverHttp = app.listen(portHttp)
-console.log('[IOTA Tangle API]')
-console.log('HTTP - Port:', portHttp)
+console.log('[HTTP] Port:', portHttp)
 
 
 //Running with HTTPS
@@ -50,7 +57,7 @@ try {
 	}
 
 	serverHttps = https.createServer(credentials, app).listen(portHttps)
-	console.log('HTTPS - Port:', portHttps)	
+	console.log('[HTTPS] Port:', portHttps)	
 }
 catch (err) {
 	Promise.reject(new Error('HTTPS - Verificar chave e certificado do servidor HTTPS.'))

@@ -1,4 +1,4 @@
-const expectedBody = require('./expectedBody')
+const expectedBody = require('./expected-body')
 
 
 module.exports = {

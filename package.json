@@ -26,6 +26,7 @@
     "nodemon": "^2.0.2"
   },
   "dependencies": {
+    "@iota/core": "^1.0.0-beta.29",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
