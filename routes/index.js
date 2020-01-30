@@ -64,28 +64,32 @@ router.post('/transaction', wrapAsync(async (req, res, next) => {
 // Fetch your messages in tangle
 ///////////////////////////////
 
-function trimNull(a) {
-  var c = a.indexOf('\0');
-  if (c>-1) {
-    return a.substr(0, c);
-  }
-  return a;
-}
-
-router.post('/findAll', wrapAsync(async (req, res, next) => {
-	iota
-	.findTransactionObjects({ addresses: [iotaAddress] })
-	.then(response => {
-
-		let transactions = response.map( function (transaction) {
+function prettyResult(arrayTransactionsObjects) {
+	let transactions = arrayTransactionsObjects.map( function (transaction) {
 			let trytes = transaction.signatureMessageFragment.slice(0, -1)
 			let data = Converter.trytesToAscii(trytes)
 
+			//To remove null caracteres
+			let dataClean = data.replace(/\0/g, '')
+			//To convert string to Object
+			let jsonData = JSON.parse(dataClean)
 
-			transaction.signatureMessageFragment  = data
-
+			transaction.signatureMessageFragment  = jsonData
 			return transaction
-		})
+	})
+	return transactions
+}
+
+
+router.post('/findAll', wrapAsync(async (req, res, next) => {
+
+	//To verifiy if was especified address in the body of request, if not, the address of .env will be fetched
+	let addressToRequest = (req.body.address) ? req.body.address : iotaAddress
+
+	iota
+	.findTransactionObjects({ addresses: [addressToRequest] })
+	.then(response => {
+		let transactions = prettyResult(response)	
 		res.send(transactions)
 	})
 	.catch(err => {

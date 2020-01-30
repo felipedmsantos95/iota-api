@@ -17,7 +17,10 @@ module.exports = {
 	},
 
 	FIND_ALL: {
-
+		address: { 
+			presence: false, 
+			type: 'string'
+		},
 	}
 
 }
