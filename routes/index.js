@@ -13,8 +13,12 @@ const Converter = require('@iota/converter')
 // Paste the output of the above code into the 'seed' section below.
 ///////////////////////////////
 router.post('/createAddress', wrapAsync(async (req, res, next) => {
+
+	let seed
+	(!req.body.seed)? seed = iotaSeed : seed = req.body.seed
+
 	iota
-	  .getNewAddress(req.body.seed, { index: 0, total: 1 })
+	  .getNewAddress(seed, { index: 0, total: 1 })
 	  .then(address => {
 	    console.log('Your address is: ' + address)
 	    console.log('Paste this address into https://faucet.devnet.iota.org')
@@ -29,7 +33,39 @@ router.post('/createAddress', wrapAsync(async (req, res, next) => {
 
 
 ///////////////////////////////
-// Send Data
+// To use in a LogVacinas App
+///////////////////////////////
+router.post('/validateVaccine', wrapAsync(async (req, res, next) => {
+	let request = asciiObj(req.body)
+
+	const message = Converter.asciiToTrytes(JSON.stringify(request))
+	const transfers = [
+		{
+			value: 0,
+			address: iotaAddress, // Where the data is being sent
+			message: message // The message converted into trytes
+		}
+	]
+
+	iota
+	.prepareTransfers(iotaSeed, transfers)
+	.then(trytes => iota.sendTrytes(trytes, 3, 9))
+	.then(bundle => {
+		console.log('Transfer successfully sent')
+		bundle.map(tx => {
+			console.log(tx)
+			res.send(tx)
+		})
+	})
+	.catch(err => {
+		console.log(err)
+		res.status(500).json(err)
+	})
+}))
+
+
+///////////////////////////////
+// To send any data
 ///////////////////////////////
 router.post('/transaction', wrapAsync(async (req, res, next) => {
 	let request = asciiObj(req.body)

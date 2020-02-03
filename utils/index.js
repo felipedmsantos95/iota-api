@@ -11,7 +11,10 @@ const normalizeCase = (string) => {
 const asciiObj = (object) => {
     let obj = {}
     Object.keys(object).forEach(function(item){
-         obj[item] = normalizeCase(object[item])
+        if(typeof object[item] == 'string')
+            obj[item] = normalizeCase(object[item])
+        else
+            obj[item] = object[item]
     });
     return obj
 }

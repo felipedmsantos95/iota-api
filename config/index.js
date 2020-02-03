@@ -1,6 +1,6 @@
 const iotaLibrary = require('@iota/core')
 const iotaSeed = process.env.IOTA_SEED || 'BXDAUDPMNMDZXEHXUWEEPEHBJLTERVIZLXIWHSFLGVF9XFUKNLVBPQJHIW9ZVIEMEDBTCOZTPD9XSATJP'
-const iotaAddress = process.env.IOTA_ADDRESS || 'PPKINAWYMBBORYVGRILANEZXJFZFQHNLCQCWTIPMAPVTDTWTHBM9SYZKMJTIMYNMLNQMYRPAWBDXERSMX'
+const iotaAddress = process.env.IOTA_ADDRESS
 const iotaProvider = process.env.IOTA_PROVIDER || 'https://nodes.devnet.thetangle.org:443'
 
 
