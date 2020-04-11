@@ -32,36 +32,6 @@ router.post('/createAddress', wrapAsync(async (req, res, next) => {
 
 
 
-///////////////////////////////
-// To use in a LogVacinas App
-///////////////////////////////
-router.post('/validateVaccine', wrapAsync(async (req, res, next) => {
-	let request = asciiObj(req.body)
-
-	const message = Converter.asciiToTrytes(JSON.stringify(request))
-	const transfers = [
-		{
-			value: 0,
-			address: iotaAddress, // Where the data is being sent
-			message: message // The message converted into trytes
-		}
-	]
-
-	iota
-	.prepareTransfers(iotaSeed, transfers)
-	.then(trytes => iota.sendTrytes(trytes, 3, 9))
-	.then(bundle => {
-		console.log('Transfer successfully sent')
-		bundle.map(tx => {
-			console.log(tx)
-			res.send(tx)
-		})
-	})
-	.catch(err => {
-		console.log(err)
-		res.status(500).json(err)
-	})
-}))
 
 
 ///////////////////////////////
