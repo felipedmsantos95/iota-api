@@ -1,39 +1,9 @@
+const app = require('./app')
 const dotenv = require('dotenv')
 dotenv.config();
-
-const express = require('express')
-const app = express()
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-
-
 const portHttp = process.env.PORT_HTTP || 4000
 const portHttps = process.env.PORT_HTTPS || 5000
-
-const https = require('https')
 const fs = require('fs')
-
-const server = require('http').Server(app);
-console.log('[IOTA Tangle API]')
-
-const { errorMiddleware, constraintsMiddleware } = require('./utils/')
-//const { iotaMiddleware } = require('./config/')
-
-app.use(morgan('dev'))
-app.use(express.json())
-app.use(cors({
-  		origin: '*'
-}))
-
-//app.use(iotaMiddleware)
-app.use(constraintsMiddleware)
-
-// All routes
-app.use(require('./routes'))
-
-app.use(errorMiddleware)
-
 
 process.on('unhandledRejection', (reason, promise) => {
   //console.log('Unhandled Rejection at:', reason.stack || reason)

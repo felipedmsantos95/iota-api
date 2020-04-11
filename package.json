@@ -4,8 +4,9 @@
   "description": "Api with routes to request the Tangle",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js",
-    "start": "node index.js"
+    "test": "cross-env NODE_ENV=test jest",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,15 @@
   },
   "homepage": "https://github.com/felipedmsantos95/iota-api#readme",
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "jest": "^25.3.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "@iota/core": "^1.0.0-beta.29",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
