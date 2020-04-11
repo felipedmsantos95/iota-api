@@ -1,5 +1,7 @@
-#IOTA JSON API#
+#IOTA JSON API - Logvacinas#
 
+
+Using the base of the master branch, here an adaptation is made in the body of the accepted request for a developed personal application.
 
 
 **Requisities:**
